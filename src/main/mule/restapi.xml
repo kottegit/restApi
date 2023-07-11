@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="4c360b7d-80de-47ec-a595-60a2af97ab25" >
+		<http:listener-connection host="0.0.0.0" port="8084" />
+	</http:listener-config>
+	<flow name="restapiFlow" doc:id="94c6c1e1-cff8-46e7-a918-c29ae9ad29df" >
+		<http:listener doc:name="Listener" doc:id="154992d1-e535-4a19-a783-427f99789dd8" config-ref="HTTP_Listener_config" path="/rest"/>
+		<logger level="INFO" doc:name="Logger" doc:id="04781383-7671-4c58-a103-ace609b4d458" message="start flow"/>
+		<http:request method="GET" doc:name="Request" doc:id="64956e46-48d3-4630-89a4-4e66e2198168" url="https://dummy.restapiexample.com/api/v1/employees"/>
+		<ee:transform doc:name="Transform Message" doc:id="44093e70-1fb6-442b-8f07-186ecac96c4e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="26074b10-c25b-4278-8994-7438fd82190e" message="end flow"/>
+	</flow>
+</mule>
