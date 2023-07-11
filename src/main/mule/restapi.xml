@@ -20,6 +20,7 @@ output application/json
 payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<set-payload value='"this is rest api"' doc:name="Set Payload" doc:id="365ea5f1-5d07-4caa-b15a-aecdc12a33c0" />
 		<logger level="INFO" doc:name="Logger" doc:id="26074b10-c25b-4278-8994-7438fd82190e" message="end flow"/>
 	</flow>
 </mule>
